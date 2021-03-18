@@ -2,10 +2,14 @@ import axios from "axios";
 import {LoginFormContainer} from "./login-form.container";
 import {useDispatch} from "react-redux";
 import {login} from "../../redux/login/login.action";
-import {Redirect} from "react-router-dom";
+import {store} from "../../store";
+import {useHistory} from 'react-router-dom'
 
 export const Login = () => {
+    const state = store.getState()
+    const auth = state.loginReducer.isLogged
     const dispatch = useDispatch()
+    const history = useHistory()
     const getUserToken = async (data: any) => {
         try {
             const userToken = await axios.post('http://localhost:1337/auth/local', data)
@@ -16,7 +20,7 @@ export const Login = () => {
     }
     return (
       <>
-          <LoginFormContainer getUserToken={getUserToken}/>
+            <LoginFormContainer getUserToken={getUserToken}/>
       </>
     )
 

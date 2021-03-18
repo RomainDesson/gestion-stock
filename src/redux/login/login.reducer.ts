@@ -1,10 +1,13 @@
 import { Action } from '../action.helper'
-import {LOGIN} from "./login.action";
+import {LOGIN, LOGOUT} from "./login.action";
 
-export const initialState = {
-    isLogged: false
+interface IProps {
+    isLogged: boolean
 }
 
+export const initialState: IProps = {
+    isLogged: localStorage.getItem('token') !== null
+}
 
 export const loginReducer = (
   state = initialState,
@@ -18,5 +21,14 @@ export const loginReducer = (
                 isLogged: true
             }
         }
-    } return state
+        case LOGOUT: {
+            localStorage.removeItem('token')
+            return {
+                ...state,
+                isLogged: false
+            }
+        }
+        default:
+            return state
+    }
 }

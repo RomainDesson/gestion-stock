@@ -1,8 +1,8 @@
 import React from "react"
 import { Redirect, Route, Switch } from "react-router-dom"
 import {Login} from "./features/login/login";
-import {HomePage} from "./components/HomePage";
 import { store } from './store'
+import {HomePageContainer} from "./components/Homepage.container";
 
 export const Routes = () => {
     const state = store.getState()
@@ -13,12 +13,14 @@ export const Routes = () => {
         component: any
         auth: boolean
     }
+
     const GuardedRoute = ({ component: Component, auth, ...rest }: IProps) => (
       <Route {...rest} render={(props) => (
-        auth === true
+        auth
           ? <Component {...props} />
           : <Redirect to='/' />
       )} />)
+
     console.log(auth)
 
     return(
@@ -27,7 +29,7 @@ export const Routes = () => {
           <Route exact path={"/login"}>
               <Login />
           </Route>
-          <GuardedRoute path={"/home"} component={HomePage} auth={auth} />
+          <GuardedRoute path={"/home"} component={HomePageContainer} auth={auth} />
       </Switch>
     )
 }
