@@ -2,7 +2,7 @@ import React from "react"
 import { Redirect, Route, Switch } from "react-router-dom"
 import {Login} from "./features/login/login";
 import { store } from './store'
-import {HomePageContainer} from "./components/Homepage.container";
+import {HomePageContainer} from "./components/homepage/Homepage.container";
 
 export const Routes = () => {
     const state = store.getState()

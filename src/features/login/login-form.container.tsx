@@ -9,8 +9,9 @@ interface IProps {
 export const LoginFormContainer = ({getUserToken}: IProps) => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const [isLoading, setIsLoading] = useState(false)
+    const [connexionError, setConnexionError] = useState(false)
     const history = useHistory()
-
     const data = {
         identifier: email,
         password: password
@@ -27,9 +28,16 @@ export const LoginFormContainer = ({getUserToken}: IProps) => {
         setPassword(e.target.value)
     }
     const _login = async () => {
+        setIsLoading(true)
         await getUserToken(data)
         const token = localStorage.getItem('token')
-        await checkToken(token)
+        setTimeout(() => {
+              checkToken(token)
+            setIsLoading(false)
+            setConnexionError(true)
+          }
+          , 1000)
     }
-    return <LoginFormView pickEmail={pickEmail} pickPassword={pickPassword} _login={_login}/>
+    return <LoginFormView pickEmail={pickEmail} pickPassword={pickPassword}
+                          _login={_login} isLoading={isLoading} connexionError={connexionError}/>
 }
