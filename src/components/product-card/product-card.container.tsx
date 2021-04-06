@@ -17,7 +17,7 @@ export const ProductCardContainer = ({
     <ProductCardView
       id={id}
       price={price}
-      productname={productName}
+      productName={productName}
       quantity={quantity}
     />
   )
