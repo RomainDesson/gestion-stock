@@ -1,24 +1,32 @@
 import {useState} from "react";
 import {LoginFormView} from "./login-form.view";
 import {useHistory} from 'react-router-dom'
+import {useDispatch} from "react-redux";
+import axios from "axios";
+import {login, logout} from "../../redux/login/login.action";
+import {store} from "../../store";
+import {HomepageContainer} from "../../components/homepage/homepage.container";
 
-interface IProps {
-    getUserToken: (data: any) => Promise<void>
-}
-
-export const LoginFormContainer = ({getUserToken}: IProps) => {
+export const LoginFormContainer = () => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [isLoading, setIsLoading] = useState(false)
-    const [connexionError, setConnexionError] = useState(false)
+    const [wrongInformations, setWrongInformations] = useState(false)
     const history = useHistory()
+    const dispatch = useDispatch()
+    const state = store.getState()
+    const auth = state.loginReducer.isLogged
     const data = {
         identifier: email,
         password: password
     }
-    const checkToken = (token?: any) => {
-        if (token) {
-            history.push('/home')
+    const getUserToken = async (data: any) => {
+        try {
+            const userToken = await axios.post('http://localhost:1337/auth/local', data)
+            dispatch(login(userToken.data.jwt))
+        } catch (e) {
+            console.log(e)
+            dispatch(logout())
         }
     }
     const pickEmail = (e: any) => {
@@ -27,17 +35,26 @@ export const LoginFormContainer = ({getUserToken}: IProps) => {
     const pickPassword = (e: any) => {
         setPassword(e.target.value)
     }
-    const _login = async () => {
+    const _login = () => {
         setIsLoading(true)
-        await getUserToken(data)
-        const token = localStorage.getItem('token')
+        getUserToken(data)
         setTimeout(() => {
-              checkToken(token)
+            const token = localStorage.getItem('token')
+            if (token !== null) {
+                history.push('/home')
+                console.log('ok')
+            } else {
+                setWrongInformations(true)
+            }
             setIsLoading(false)
-            setConnexionError(true)
-          }
-          , 1000)
+        }, 1000)
     }
-    return <LoginFormView pickEmail={pickEmail} pickPassword={pickPassword}
-                          _login={_login} isLoading={isLoading} connexionError={connexionError}/>
+
+    return (
+        <>
+            {auth
+             ? <HomepageContainer />
+             : <LoginFormView pickEmail={pickEmail} pickPassword={pickPassword}
+                              _login={_login} isLoading={isLoading} wrongInformations={wrongInformations}/>}
+         </>)
 }

@@ -4,21 +4,19 @@ import {CgSpinner} from "react-icons/all";
 interface IProps {
     pickEmail: (e: any) => void
     pickPassword: (e: any) => void
-    _login: (data: object) => Promise<void>
+    _login: any
     isLoading: boolean
-    connexionError: boolean
+    wrongInformations: boolean
 }
 
-export const LoginFormView = ({ pickEmail, pickPassword, _login, isLoading, connexionError }: IProps) => {
+export const LoginFormView = ({ pickEmail, pickPassword, _login, isLoading, wrongInformations }: IProps) => {
     return (
       <div className={'flex items-center justify-center h-screen'}>
           <div className={'bg-gray-600 text-white font-bold rounded-lg border shadow-lg p-10 pt-4 w-400'}>
               <h2 className={'text-center mb-3'}>Se connecter</h2>
-              {
-                  connexionError
-                    ? <p className={'text-xs mb-2 text-red-500'}>Nom d'utilisateur ou mot de passe incorect</p>
-                    : ''
-              }
+              {wrongInformations
+                    ? <p className={'text-xs mb-2 text-red-500'}>Nom d'utilisateur ou mot de passe incorrect</p>
+                    : ''}
               <div className={'mb-4 mx-10'}>
                   <input id={'username'} onChange={pickEmail} placeholder={"Nom d'utilisateur"} className={'px-2 rounded text-black'}/>
               </div>

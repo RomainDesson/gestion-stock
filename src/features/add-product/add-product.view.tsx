@@ -1,0 +1,36 @@
+interface IProps {
+    showProductForm: () => void
+    productFormDisplay: boolean
+    _addProduct: (data: object) => void
+    handleFieldChange: (e: any) => void
+    formData: object
+}
+
+export const AddProductView = ({showProductForm, productFormDisplay, _addProduct, handleFieldChange, formData}: IProps) => {
+    return (
+        <>
+            <button onClick={showProductForm} className={'px-3 py-1 border rounded bg-green-600 text-white'}>
+                + Nouveau produit
+            </button>
+            {productFormDisplay
+                ? <>
+                    <form className={'flex-col mt-4'}>
+                        <div>
+                            <label htmlFor={'productname'}></label>
+                            <input className={'border'} onChange={handleFieldChange} name={'productname'} placeholder={"Nom"}/>
+                        </div>
+                        <div>
+                            <label htmlFor={'price'}></label>
+                            <input className={'border'} onChange={handleFieldChange} name={'price'} placeholder={"Prix"}/>
+                        </div>
+                        <div>
+                            <label htmlFor={'quantity'}></label>
+                            <input className={'border'} onChange={handleFieldChange} name={'quantity'} placeholder={"Quantité"}/>
+                        </div>
+                    </form>
+                    <button onClick={() => _addProduct(formData)} className={"px-3 py-1 border rounded bg-green-600 text-white mt-2"}>Confirmer</button>
+                </>
+                : ''}
+        </>
+    )
+}
