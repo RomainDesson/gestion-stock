@@ -11,8 +11,8 @@ export const AddProductContainer = () => {
   const dispatch = useDispatch()
   const initialFormState = {
     productName: '',
-    price: 0,
-    quantity: 0
+    price: '',
+    quantity: ''
   }
   const [formData, setFormData] = useState(initialFormState)
   const headers = {
@@ -43,13 +43,15 @@ export const AddProductContainer = () => {
         }
       )
       dispatch(addProduct(dbProduct.data))
+      setFormData(initialFormState)
     } catch (e) {
       console.log(e)
     }
   }
   const _addProduct = (data: any) => {
-    pickProductData(data)
-    setFormData(initialFormState)
+    if (formData.productName) {
+      pickProductData(data)
+    }
   }
   useFetch()
   return (

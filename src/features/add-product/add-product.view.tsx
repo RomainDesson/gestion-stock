@@ -32,30 +32,32 @@ export const AddProductView = ({
             }}
           >
             <div>
-              <label htmlFor={'productName'}></label>
               <input
                 className={'border'}
                 onChange={handleFieldChange}
                 name={'productName'}
                 placeholder={'Nom'}
+                value={formData.productName}
               />
             </div>
             <div>
-              <label htmlFor={'price'}></label>
               <input
                 className={'border'}
+                type={'number'}
                 onChange={handleFieldChange}
                 name={'price'}
                 placeholder={'Prix'}
+                value={formData.price}
               />
             </div>
             <div>
-              <label htmlFor={'quantity'}></label>
               <input
                 className={'border'}
+                type={'number'}
                 onChange={handleFieldChange}
                 name={'quantity'}
                 placeholder={'Quantité'}
+                value={formData.quantity}
               />
             </div>
           </form>
