@@ -1,12 +1,24 @@
-import {ProductCardView} from "./product-card.view";
+import { ProductCardView } from './product-card.view'
 
 interface IProps {
-    id: number,
-    productname: string,
-    price: number,
-    quantity: number
+  id: number
+  productName: string
+  price: number
+  quantity: number
 }
 
-export const ProductCardContainer = ({id, productname, price, quantity}: IProps) => {
-    return <ProductCardView id={id} price={price} productname={productname} quantity={quantity}/>
+export const ProductCardContainer = ({
+  id,
+  productName,
+  price,
+  quantity
+}: IProps) => {
+  return (
+    <ProductCardView
+      id={id}
+      price={price}
+      productname={productName}
+      quantity={quantity}
+    />
+  )
 }
