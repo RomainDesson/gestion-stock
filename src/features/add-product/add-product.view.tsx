@@ -14,7 +14,11 @@ export const AddProductView = ({showProductForm, productFormDisplay, _addProduct
             </button>
             {productFormDisplay
                 ? <>
-                    <form className={'flex-col mt-4'}>
+                    <form className={'flex-col mt-4'} onKeyPress={event => {
+                        if (event.key === 'Enter') {
+                            _addProduct(formData)
+                        }
+                    }}>
                         <div>
                             <label htmlFor={'productname'}></label>
                             <input className={'border'} onChange={handleFieldChange} name={'productname'} placeholder={"Nom"}/>

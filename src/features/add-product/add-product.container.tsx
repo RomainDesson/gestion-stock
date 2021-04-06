@@ -9,11 +9,12 @@ export const AddProductContainer = () => {
     const [productFormDisplay, setProductFormDisplay] = useState(false)
     const userToken = localStorage.getItem('token')
     const dispatch = useDispatch()
-    const [formData, setFormData] = useState({
+    const initialFormState = {
         productname: '',
         price: 0,
         quantity: 0
-    })
+    }
+    const [formData, setFormData] = useState(initialFormState)
     const headers = {
         'content-type': 'application/JSON',
         'Authorization': `Bearer ${userToken}`
@@ -44,6 +45,7 @@ export const AddProductContainer = () => {
     }
     const _addProduct = (data: object) => {
         pickProductData(data)
+        setFormData(initialFormState)
     }
     useFetch()
     return (
