@@ -3,7 +3,7 @@ import {
   ADD_PRODUCT,
   DELETE_PRODUCT,
   FETCH_PRODUCTS,
-  UPDATE_PRICE_PRODUCT
+  UPDATE_PRODUCT_DATA
 } from './products.action'
 
 export const initialState = {
@@ -37,7 +37,7 @@ export const productsReducer = (
         ]
       }
     }
-    case UPDATE_PRICE_PRODUCT: {
+    case UPDATE_PRODUCT_DATA: {
       return {
         ...state,
         productsList: [

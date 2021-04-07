@@ -3,7 +3,7 @@ import { Action } from '../action.helper'
 export const ADD_PRODUCT = 'ADD_PRODUCT'
 export const DELETE_PRODUCT = 'DELETE_PRODUCT'
 export const FETCH_PRODUCTS = 'FETCH_PRODUCTS'
-export const UPDATE_PRICE_PRODUCT = 'UPDATE_PRICE_PRODUCT'
+export const UPDATE_PRODUCT_DATA = 'UPDATE_PRODUCT_DATA'
 
 export const fetchProducts = (data: any) => {
   return {
@@ -23,9 +23,9 @@ export const deleteProduct = (id: number): Action => {
     payload: id
   }
 }
-export const updatePriceProduct = (product: Product): Action => {
+export const updateProductData = (product: Product): Action => {
   return {
-    type: UPDATE_PRICE_PRODUCT,
+    type: UPDATE_PRODUCT_DATA,
     payload: product
   }
 }

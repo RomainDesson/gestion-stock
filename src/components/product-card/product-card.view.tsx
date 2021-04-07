@@ -1,5 +1,6 @@
 import { DeleteProductContainer } from '../../features/delete-product/delete-product.container'
 import { ModifyPriceContainer } from '../../features/modify-product/modify-price/modify-price.container'
+import { ModifyQuantityContainer } from '../../features/modify-product/modify-quantity/modify-quantity.container'
 
 interface IProps {
   id: number
@@ -20,7 +21,9 @@ export const ProductCardView = ({
       <td className={'text-center border'}>
         <ModifyPriceContainer id={id}>{price}</ModifyPriceContainer>
       </td>
-      <td className={'text-center border'}>{quantity}</td>
+      <td className={'text-center border'}>
+        <ModifyQuantityContainer id={id}>{quantity}</ModifyQuantityContainer>
+      </td>
       <td className={'text-center border'}>
         <DeleteProductContainer id={id} />
       </td>
