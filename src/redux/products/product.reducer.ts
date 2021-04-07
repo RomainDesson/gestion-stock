@@ -1,5 +1,10 @@
 import { Action } from '../action.helper'
-import { ADD_PRODUCT, DELETE_PRODUCT, FETCH_PRODUCTS } from './products.action'
+import {
+  ADD_PRODUCT,
+  DELETE_PRODUCT,
+  FETCH_PRODUCTS,
+  UPDATE_PRICE_PRODUCT
+} from './products.action'
 
 export const initialState = {
   productsList: []
@@ -28,6 +33,16 @@ export const productsReducer = (
         productsList: [
           ...state.productsList.filter(
             (product: Product) => product.id !== payload
+          )
+        ]
+      }
+    }
+    case UPDATE_PRICE_PRODUCT: {
+      return {
+        ...state,
+        productsList: [
+          ...state.productsList.map((product: Product) =>
+            product.id === payload.data.id ? payload.data : product
           )
         ]
       }
