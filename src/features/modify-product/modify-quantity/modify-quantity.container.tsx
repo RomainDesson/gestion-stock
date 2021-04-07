@@ -1,6 +1,6 @@
-import { ModifyPriceView } from './modify-price.view'
-import axios from 'axios'
+import { ModifyQuantityView } from './modify-quantity.view'
 import { useDispatch } from 'react-redux'
+import axios from 'axios'
 import { updateProductData } from '../../../redux/products/products.action'
 
 interface IProps {
@@ -8,36 +8,36 @@ interface IProps {
   id: number
 }
 
-export const ModifyPriceContainer = ({ children, id }: IProps) => {
+export const ModifyQuantityContainer = ({ children, id }: IProps) => {
   const dispatch = useDispatch()
   const userToken = localStorage.getItem('token')
   const headers = {
     'content-type': 'application/JSON',
     Authorization: `Bearer ${userToken}`
   }
-  const updatePricePlus = async () => {
+  const updateQuantityPlus = async () => {
     const res: Product = await axios.put(
       'http://localhost:1337/products/' + id,
-      { price: `${children + 1}` },
+      { quantity: `${children + 1}` },
       { headers: headers }
     )
     dispatch(updateProductData(res))
   }
-  const updatePriceMinus = async () => {
+  const updateQuantityMinus = async () => {
     if (children > 0) {
       const res: Product = await axios.put(
         'http://localhost:1337/products/' + id,
-        { price: `${children - 1}` },
+        { quantity: `${children - 1}` },
         { headers: headers }
       )
       dispatch(updateProductData(res))
     }
   }
   return (
-    <ModifyPriceView
+    <ModifyQuantityView
       children={children}
-      updatePricePlus={updatePricePlus}
-      updatePriceMinus={updatePriceMinus}
+      updateQuantityMinus={updateQuantityMinus}
+      updateQuantityPlus={updateQuantityPlus}
     />
   )
 }
